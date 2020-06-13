@@ -8,11 +8,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerEvent implements Listener{
 	private Main plugin;
-	public SerializeItem SItem;
 	public PlayerEvent(Main plugin)
 	{
 		this.plugin = plugin;
-		this.SItem = new SerializeItem();
 	}
 	@EventHandler()
 	public void Join(PlayerJoinEvent event)

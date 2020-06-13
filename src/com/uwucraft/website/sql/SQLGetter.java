@@ -34,7 +34,7 @@ public class SQLGetter {
 			
 			try {
 				ps = plugin.SQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `"+ this.prefix + this.playerdata + "` (`UUID` varchar(36) NOT NULL,`username` varchar(255) NOT NULL,`health` double NOT NULL,`hunger` int(11) NOT NULL,`gamemode` varchar(32) NOT NULL,`level` int(11) NOT NULL,`experience` float NOT NULL,`exhaustion` float NOT NULL,`saturation` float NOT NULL,`air` int(11) NOT NULL,`potionEffect` longtext NOT NULL,`inventory` longtext NOT NULL,`armorInventory` longtext NOT NULL,`offHand` longtext NOT NULL,`enderChest` longtext NOT NULL,`money` double NOT NULL,`last_sync` bigint(20) NOT NULL,`last_seen` bigint(20) NOT NULL, PRIMARY KEY (`UUID`))");
-				Bukkit.getLogger().info("[UWUCRAFT] Creating Table");
+				Bukkit.getLogger().info("[UWUCRAFT] Table Linked !");
 				ps.executeUpdate();
 
 			}catch(SQLException e)

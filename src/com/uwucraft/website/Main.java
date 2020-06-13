@@ -1,19 +1,18 @@
 package com.uwucraft.website;
 
+import java.sql.SQLException;
+//Spagehtti Code Coming UP
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-
 import com.uwucraft.website.sql.MySQL;
 import com.uwucraft.website.sql.SQLGetter;
 
 import net.milkbowl.vault.economy.Economy;
-
-import java.sql.SQLException;
-//Spagehtti Code Coming UP
 
 public class Main extends JavaPlugin implements Listener{
 
@@ -94,4 +93,29 @@ public class Main extends JavaPlugin implements Listener{
 			this.lastSync = System.currentTimeMillis();
 		}
 	}
+//	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+//	{
+//		if (label.equalsIgnoreCase("uwu"))
+//		{
+//			if(sender instanceof Player)
+//			{
+//				sender.sendMessage(ChatColor.DARK_RED + "You're Not Allowed to run this command !");
+//			}
+//			else
+//			{ 
+//				sender.sendMessage("/uwu shop withdraw|deposit|inventory player value|item");
+//				String first = args[0].toLowerCase();
+//				switch(first)
+//					{
+//						case "shop":
+//						sender.sendMessage("b");
+//						return true;
+//						default:
+//							sender.sendMessage("/uwu shop withdraw|deposit|inventory player value|item");
+//						return true;
+//					}
+//			}
+//		}
+//		return false;
+//	}
 }
