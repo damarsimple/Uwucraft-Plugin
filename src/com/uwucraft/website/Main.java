@@ -1,10 +1,8 @@
 package com.uwucraft.website;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -54,7 +52,7 @@ public class Main extends JavaPlugin implements Listener{
 		//Start Economy
 		if(!setupEconomy())
 		{
-			System.out.println(ChatColor.RED + "[UWUCRAFT] Thou must have Vault !" + " Disabling Plugins");
+			Bukkit.getLogger().info("[UWUCRAFT] Thou must have Vault !" + " Disabling Plugins");
 			getServer().getPluginManager().disablePlugin(this);
 			return;
 		}
@@ -91,10 +89,9 @@ public class Main extends JavaPlugin implements Listener{
 		if(!Bukkit.getOnlinePlayers().isEmpty() && System.currentTimeMillis() - this.lastSync >= Integer.parseInt(this.getConfig().getString("interval")) * 60 *1000)
 		{
 			for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-		        Main.this.data.SyncData(player);
+		        this.data.SyncData(player);
 				}
 			this.lastSync = System.currentTimeMillis();
-			Bukkit.getLogger().info("Bruh" + this.getConfig().getString("interval"));
 		}
 	}
 }

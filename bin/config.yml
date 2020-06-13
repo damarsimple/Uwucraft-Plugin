@@ -1,5 +1,4 @@
-
-
+#Everyting is Strings
 #Database
 host: "localhost"
 port: "3306"
@@ -13,6 +12,6 @@ SSL: "false"
 
 interval: "1" # Minutes
 
-
-#Everyting is Strings
-
+#Table Name
+prefix: "mc_"
+playerdata: "playerdata"

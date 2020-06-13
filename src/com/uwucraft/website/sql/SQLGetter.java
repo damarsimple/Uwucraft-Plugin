@@ -23,8 +23,8 @@ public class SQLGetter {
 		public SQLGetter(Main plugin)
 		{
 			this.plugin = plugin;
-			this.prefix = "mc_";
-			this.playerdata = "playerdata";
+			this.prefix = plugin.getConfig().getString("prefix");
+			this.playerdata = plugin.getConfig().getString("playerdata");
 			this.SItem = new SerializeItem();
 		}
 		
@@ -40,7 +40,7 @@ public class SQLGetter {
 			}catch(SQLException e)
 		
 			{
-				e.printStackTrace();
+				Bukkit.getLogger().info("[UWUCRAFT] Cant Create Table !");
 			}
 		}
 		
@@ -127,7 +127,7 @@ public class SQLGetter {
 				Bukkit.getLogger().info("[UWUCRAFT] Syncing " + player.getName() + " To Database");
 			} catch(SQLException e)
 			{
-				e.printStackTrace();
+				Bukkit.getLogger().info("[UWUCRAFT] Cant Sync " + player.getName());
 			}
 		}
 		public void SyncDataMoney(int money)
@@ -142,7 +142,7 @@ public class SQLGetter {
 				ps.executeUpdate();
 			}catch(SQLException e)
 			{
-				e.printStackTrace();
+				Bukkit.getLogger().info("[UWUCRAFT] Cant Update Last Seen");
 			}
 		}
 }
