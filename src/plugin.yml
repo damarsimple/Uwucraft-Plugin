@@ -1,0 +1,7 @@
+main: com.uwucraft.website.Main
+name: Test
+version: 1.0
+author: DamarAlbaribin
+
+commands:
+ Hello:
