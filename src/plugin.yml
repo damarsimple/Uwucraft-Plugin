@@ -1,7 +1,5 @@
 main: com.uwucraft.website.Main
-name: Test
+name: UwUcraftSync
 version: 1.0
 author: DamarAlbaribin
-
-commands:
- Hello:
+depend: [Vault]
