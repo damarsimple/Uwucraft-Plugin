@@ -4,6 +4,9 @@ import java.sql.SQLException;
 //Spagehtti Code Coming UP
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -93,29 +96,30 @@ public class Main extends JavaPlugin implements Listener{
 			this.lastSync = System.currentTimeMillis();
 		}
 	}
-//	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
-//	{
-//		if (label.equalsIgnoreCase("uwu"))
-//		{
-//			if(sender instanceof Player)
-//			{
-//				sender.sendMessage(ChatColor.DARK_RED + "You're Not Allowed to run this command !");
-//			}
-//			else
-//			{ 
-//				sender.sendMessage("/uwu shop withdraw|deposit|inventory player value|item");
-//				String first = args[0].toLowerCase();
-//				switch(first)
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+	{
+		if (label.equalsIgnoreCase("uwu"))
+		{
+			if(sender instanceof Player)
+			{
+				sender.sendMessage(ChatColor.DARK_RED + "You're Not Allowed to run this command !");
+			}
+			else
+			{ 
+				sender.sendMessage("/uwu shop withdraw|deposit|inventory player value|item");
+//				if(args[0] == "shop")
+//				{
+//					if(!Double.toString(eco.getBalance(args[1])).isEmpty())
 //					{
-//						case "shop":
-//						sender.sendMessage("b");
-//						return true;
-//						default:
-//							sender.sendMessage("/uwu shop withdraw|deposit|inventory player value|item");
-//						return true;
+//						//Player player = Bukkit.getPlayer(args[1]);
+//						sender.sendMessage("Player Found " + Double.toString(eco.getBalance(args[1])));
+//					}else {
+//						sender.sendMessage("Player Not Found");
 //					}
-//			}
-//		}
-//		return false;
-//	}
+//				}
+
+			}
+		}
+		return false;
+	}
 }

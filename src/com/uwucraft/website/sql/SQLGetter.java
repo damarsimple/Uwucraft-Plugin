@@ -11,7 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.uwucraft.website.Main;
-import com.uwucraft.website.SerializeItem;
+import com.uwucraft.website.Serialize;
 
 
 public class SQLGetter {
@@ -19,13 +19,13 @@ public class SQLGetter {
 		private Main plugin;
 		private String playerdata;
 		private String prefix;
-		private SerializeItem SItem;
+		private Serialize Serialize;
 		public SQLGetter(Main plugin)
 		{
 			this.plugin = plugin;
 			this.prefix = plugin.getConfig().getString("prefix");
 			this.playerdata = plugin.getConfig().getString("playerdata");
-			this.SItem = new SerializeItem();
+			this.Serialize = new Serialize();
 		}
 		
 		public void createTable()
@@ -66,10 +66,10 @@ public class SQLGetter {
 					ps2.setFloat(9, player.getSaturation());
 					ps2.setInt(10, player.getRemainingAir());
 					ps2.setString(11, player.getActivePotionEffects().toString());
-					ps2.setString(12, this.SItem.ItemStackToString(player.getInventory().getContents()));
-					ps2.setString(13, this.SItem.ItemStackToString(player.getInventory().getArmorContents()));
-					ps2.setString(14, player.getInventory().getItemInOffHand().toString());
-					ps2.setString(15, this.SItem.ItemStackToString(player.getEnderChest().getContents()));
+					ps2.setString(12, this.Serialize.ItemStackToString(player.getInventory().getContents()));
+					ps2.setString(13, this.Serialize.ItemStackToString(player.getInventory().getArmorContents()));
+					ps2.setString(14, player.getInventory().getItemInOffHand().toString().replace("ItemStack", ""));
+					ps2.setString(15, this.Serialize.ItemStackToString(player.getEnderChest().getContents()));
 					ps2.setDouble(16, plugin.eco.getBalance(player.getName()));
 					ps2.setInt(17, 	Math.toIntExact(System.currentTimeMillis()/1000));
 					ps2.setInt(18, 	Math.toIntExact(System.currentTimeMillis()/1000));
@@ -116,10 +116,10 @@ public class SQLGetter {
 				ps.setFloat(7, player.getSaturation());
 				ps.setInt(8, player.getRemainingAir());
 				ps.setString(9, player.getActivePotionEffects().toString());
-				ps.setString(10, this.SItem.ItemStackToString(player.getInventory().getContents()));
-				ps.setString(11, this.SItem.ItemStackToString(player.getInventory().getArmorContents()));
-				ps.setString(12, player.getInventory().getItemInOffHand().toString());
-				ps.setString(13, this.SItem.ItemStackToString(player.getEnderChest().getContents()));
+				ps.setString(10, this.Serialize.ItemStackToString(player.getInventory().getContents()));
+				ps.setString(11, this.Serialize.ItemStackToString(player.getInventory().getArmorContents()));
+				ps.setString(12, player.getInventory().getItemInOffHand().toString().replace("ItemStack", ""));
+				ps.setString(13, this.Serialize.ItemStackToString(player.getEnderChest().getContents()));
 				ps.setDouble(14, plugin.eco.getBalance(player.getName()));
 				ps.setInt(15, 	Math.toIntExact(System.currentTimeMillis()/1000));
 				ps.setString(16, player.getUniqueId().toString());
@@ -130,15 +130,25 @@ public class SQLGetter {
 				Bukkit.getLogger().info("[UWUCRAFT] Cant Sync " + player.getName());
 			}
 		}
-		public void SyncDataMoney(int money)
+		@SuppressWarnings("deprecation")
+		public void SyncDataMoney(Player player)
 		{
-			
+			try {
+				PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("UPDATE "+ this.prefix + this.playerdata+ "  SET money = ? WHERE UUID = ?");
+				ps.setDouble(1, plugin.eco.getBalance(player.getName()));
+				ps.setString(2, player.getUniqueId().toString());
+				ps.executeUpdate();
+			}catch(SQLException e)
+			{
+				Bukkit.getLogger().info("[UWUCRAFT] Cant Sync Money");
+			}
 		}
 		public void LastSeen(Player player)
 		{
 			try {
-				PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("UPDATE "+ this.prefix + this.playerdata+ "  SET last_seen = ?");
+				PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("UPDATE "+ this.prefix + this.playerdata+ "  SET last_seen = ? WHERE UUID = ?");
 				ps.setInt(1, Math.toIntExact(System.currentTimeMillis()/1000));
+				ps.setString(2, player.getUniqueId().toString());
 				ps.executeUpdate();
 			}catch(SQLException e)
 			{

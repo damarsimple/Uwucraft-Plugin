@@ -25,8 +25,11 @@ public class PlayerEvent implements Listener{
 	{
 		Player player = (Player) event.getPlayer();
 		plugin.data.SyncData(player);
+		plugin.data.SyncDataMoney(player);
 		plugin.data.LastSeen(player);
 	}
+
+	
 //	@EventHandler()
 //	public void onKill(EntityDeathEvent event)
 //	{
