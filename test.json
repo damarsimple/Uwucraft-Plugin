@@ -1,0 +1,29 @@
+{
+  "args": {},
+  "data": "",
+  "files": {},
+  "form": {
+    "eventType": "death",
+    "killer": "",
+    "message": "denisbiguwu was slain by Wither Skeleton",
+    "killed": "denisbiguwu"
+  },
+  "headers": {
+    "x-forwarded-proto": "https",
+    "x-forwarded-port": "443",
+    "host": "postman-echo.com",
+    "x-amzn-trace-id": "Root=1-5f33d46a-db059ce65138d47682bb215e",
+    "content-length": "90",
+    "accept-encoding": "gzip",
+    "user-agent": "Google-HTTP-Java-Client/1.36.0 (gzip)",
+    "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    "accept": "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"
+  },
+  "json": {
+    "eventType": "death",
+    "killer": "",
+    "message": "denisbiguwu was slain by Wither Skeleton",
+    "killed": "denisbiguwu"
+  },
+  "url": "https://postman-echo.com/post"
+}
