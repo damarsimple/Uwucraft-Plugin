@@ -12,15 +12,19 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.Plugin;
+
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 
 //TODO: GENERATE LOG
 public class EventListener implements Listener {
 
     public EventExecutor executor;
+    public Plugin plugin;
 
-    EventListener() {
+    EventListener(Plugin plugin) {
         this.executor = new EventExecutor();
+        this.plugin = plugin;
     }
 
     @EventHandler
@@ -30,9 +34,6 @@ public class EventListener implements Listener {
             executor.execute();
         } catch (IOException e) {
             Bukkit.getLogger().info("Failed to send join event");
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
     }
 
@@ -43,9 +44,6 @@ public class EventListener implements Listener {
             executor.execute();
         } catch (IOException e) {
             Bukkit.getLogger().info("Failed to send leave event");
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
     }
 
@@ -64,9 +62,6 @@ public class EventListener implements Listener {
                 executor.execute();
             } catch (IOException e) {
                 Bukkit.getLogger().info("Failed to send death event");
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             }
         });
 
@@ -74,21 +69,23 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void playerAdvancementEvent(PlayerAdvancementDoneEvent event) {
-        //This Event Called Multiple Time
+        // This Event Called Multiple Time
         Advancement advancement = event.getAdvancement();
-        Advancement test = Bukkit.getAdvancement(advancement.getKey());
         String advancementName = advancement.getKey().getKey();
         String playerName = event.getPlayer().getName();
         String message = playerName + " has just gotten " + advancementName;
-        executor.advancement(advancementName, playerName, message);
-        CompletableFuture.runAsync(() -> {
-            try {
-                executor.execute();
-            } catch (IOException | InterruptedException e) {
-                Bukkit.getLogger().info("Failed to send advancement event");
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+            public void run() {
+                try {
+                    //This Method has to be delayed
+                    executor.advancement(advancementName, playerName, message);
+                    executor.execute();
+                    Bukkit.getLogger().info("success sending " + advancementName);
+                } catch (IOException e) {
+                    Bukkit.getLogger().info("Failed to send advancement event " + advancementName);
+                    e.printStackTrace();
+                }
             }
-        });
-        System.out.println(advancementName + " " + playerName + test.getKey().getNamespace());
+        }, 100L);
     }
-
 }

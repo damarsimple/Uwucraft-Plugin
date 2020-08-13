@@ -13,7 +13,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 public class Api {
 
     public static void post(Map<String, Object> json) throws IOException {
-        GenericUrl url = new GenericUrl("https://postman-echo.com/post");
+        GenericUrl url = new GenericUrl("http://localhost/api/game/event");
         HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
         // Map<String, Object> data = new LinkedHashMap<>();
         // data.put("arg1", true);
